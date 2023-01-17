@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Check types
+npm run check-types
+
+# Check prettier
+npm run check-format
+
+# Check linting
+npm run lint
