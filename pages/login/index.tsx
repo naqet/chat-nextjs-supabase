@@ -1,6 +1,5 @@
 import { type FormEvent, useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import styles from "./LoginPage.module.css";
 import { useRouter } from "next/router";
 
 export default function LoginPage() {
@@ -39,21 +38,19 @@ export default function LoginPage() {
   };
 
   return (
-    <main className={styles.container}>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input type="email" name="email" />
-        </label>
-        <label>
-          Password
-          <input type="password" name="password" />
-        </label>
-        <button type="submit" aria-busy={loading}>
-          Login
-        </button>
-        {message && <small>{message}</small>}
-      </form>
-    </main>
+    <form onSubmit={handleSubmit}>
+      <label>
+        Email
+        <input type="email" name="email" />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" />
+      </label>
+      <button type="submit" aria-busy={loading}>
+        Login
+      </button>
+      {message && <small>{message}</small>}
+    </form>
   );
 }

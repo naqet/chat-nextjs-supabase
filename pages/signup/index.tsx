@@ -1,6 +1,5 @@
 import { type FormEvent, useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import styles from "./SignUpPage.module.css";
 
 export default function SignUpPage() {
   const supabaseClient = useSupabaseClient();
@@ -42,7 +41,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <main className={styles.container}>
+    <main>
       <form onSubmit={handleSubmit}>
         <label>
           Username

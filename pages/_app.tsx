@@ -6,6 +6,7 @@ import {
   SessionContextProvider,
 } from "@supabase/auth-helpers-react";
 import "@picocss/pico";
+import Layout from "@/components/Layout";
 
 export default function App({
   Component,
@@ -17,7 +18,9 @@ export default function App({
       supabaseClient={supabase}
       initialSession={pageProps.initialSession}
     >
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </SessionContextProvider>
   );
 }
