@@ -1,3 +1,5 @@
+import type { GetServerSidePropsContext } from "next";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import Head from "next/head";
 
 export default function Home() {
@@ -11,4 +13,17 @@ export default function Home() {
       </Head>
     </>
   );
+}
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const supabase = createServerSupabaseClient(ctx);
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session)
+    return { redirect: { destination: "/login", permanent: false } };
+
+  return { props: {} };
 }
