@@ -1,0 +1,13 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+}
+
+.message-input {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  gap: 0.5rem;
+  margin-inline: 1rem;
+  margin-bottom: 0;
+}

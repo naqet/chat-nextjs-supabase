@@ -1,6 +1,7 @@
 import type { GetServerSidePropsContext } from "next";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import Head from "next/head";
+import MainView from "@/components/MainView";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <MainView />
     </>
   );
 }

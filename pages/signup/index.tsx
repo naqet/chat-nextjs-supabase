@@ -1,15 +1,18 @@
 import { type FormEvent, useState } from "react";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import useTypedSbClient from "@/utils/useTypedSbClient";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function SignUpPage() {
-  const supabaseClient = useSupabaseClient();
-  const [message, setMessage] = useState<string>("");
+  const router = useRouter();
+  const supabaseClient = useTypedSbClient();
+  const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      setMessage("");
+      setError("");
       setLoading(true);
       const formData = Object.fromEntries(new FormData(e.currentTarget));
       const { email, username, password } = formData;
@@ -30,12 +33,11 @@ export default function SignUpPage() {
       if (error) throw Error(error.message);
 
       setLoading(false);
-
-      setMessage("User created.");
+      router.push("/login");
     } catch (e) {
       setLoading(false);
       if (e instanceof Error) {
-        setMessage(e.message);
+        setError(e.message);
       }
     }
   };
@@ -58,7 +60,12 @@ export default function SignUpPage() {
         <button type="submit" aria-busy={loading}>
           Sign up
         </button>
-        {message && <small>{message}</small>}
+        <Link href="login">Login</Link>
+        {error && (
+          <p>
+            <small>{error}</small>
+          </p>
+        )}
       </form>
     </main>
   );
