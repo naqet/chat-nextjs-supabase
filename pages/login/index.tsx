@@ -1,8 +1,10 @@
 import { type FormEvent, useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import styles from "./SignUpPage.module.css";
+import styles from "./LoginPage.module.css";
+import { useRouter } from "next/router";
 
-export default function SignUpPage() {
+export default function LoginPage() {
+  const router = useRouter();
   const supabaseClient = useSupabaseClient();
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,26 +15,21 @@ export default function SignUpPage() {
       setMessage("");
       setLoading(true);
       const formData = Object.fromEntries(new FormData(e.currentTarget));
-      const { email, username, password } = formData;
+      const { email, password } = formData;
 
-      if (
-        typeof email !== "string" ||
-        typeof username !== "string" ||
-        typeof password !== "string"
-      )
+      if (typeof email !== "string" || typeof password !== "string")
         throw Error("Form is not valid");
 
-      const { error } = await supabaseClient.auth.signUp({
+      const { error } = await supabaseClient.auth.signInWithPassword({
         email,
         password,
-        options: { data: { username } },
       });
 
       if (error) throw Error(error.message);
 
       setLoading(false);
 
-      setMessage("User created.");
+      router.push("/");
     } catch (e) {
       setLoading(false);
       if (e instanceof Error) {
@@ -45,10 +42,6 @@ export default function SignUpPage() {
     <main className={styles.container}>
       <form onSubmit={handleSubmit}>
         <label>
-          Username
-          <input type="text" name="username" />
-        </label>
-        <label>
           Email
           <input type="email" name="email" />
         </label>
@@ -57,7 +50,7 @@ export default function SignUpPage() {
           <input type="password" name="password" />
         </label>
         <button type="submit" aria-busy={loading}>
-          Sign up
+          Login
         </button>
         {message && <small>{message}</small>}
       </form>
