@@ -7,20 +7,26 @@ import {
 } from "@supabase/auth-helpers-react";
 import "@picocss/pico";
 import Layout from "@/components/Layout";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Database } from "@/types/supabase";
 
 export default function App({
   Component,
   pageProps,
 }: AppProps<{ initialSession: Session }>) {
-  const [supabase] = useState(() => createBrowserSupabaseClient());
+  const [supabase] = useState(() => createBrowserSupabaseClient<Database>());
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
     <SessionContextProvider
       supabaseClient={supabase}
       initialSession={pageProps.initialSession}
     >
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <QueryClientProvider client={queryClient}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </QueryClientProvider>
     </SessionContextProvider>
   );
 }

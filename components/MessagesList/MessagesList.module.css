@@ -1,0 +1,27 @@
+.list {
+  height: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  overflow-y: scroll;
+  border-bottom: 1px solid var(--secondary);
+}
+
+.message {
+  list-style: none;
+  border: 1px solid var(--secondary);
+  width: fit-content;
+  padding-inline: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.message[data-auth-user-message="true"] {
+  margin-left: auto;
+  background-color: var(--secondary);
+}
+
+.info-block {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
