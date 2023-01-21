@@ -28,7 +28,7 @@ export default function Chat() {
     <div className={styles.chat}>
       <MessagesList />
       <form onSubmit={handleSubmit} className={styles["message-input"]}>
-        <input name="message" />
+        <input name="message" autoComplete="off" />
         <button type="submit">Send</button>
       </form>
     </div>
