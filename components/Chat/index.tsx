@@ -1,9 +1,12 @@
 import useTypedSbClient from "@/utils/useTypedSbClient";
+import { useRouter } from "next/router";
 import { FormEvent } from "react";
 import MessagesList from "../MessagesList";
 import styles from "./Chat.module.css";
 
 export default function Chat() {
+  const router = useRouter();
+  const { roomId } = router.query;
   const supabaseClient = useTypedSbClient();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -16,9 +19,10 @@ export default function Chat() {
 
       form.reset();
 
-      const { error } = await supabaseClient
-        .from("messages")
-        .insert({ content: message });
+      const { error } = await supabaseClient.from("messages").insert({
+        content: message,
+        room_id: typeof roomId === "string" ? roomId : null,
+      });
 
       if (error) throw Error(error.message);
     } catch {}
@@ -28,7 +32,7 @@ export default function Chat() {
     <div className={styles.chat}>
       <MessagesList />
       <form onSubmit={handleSubmit} className={styles["message-input"]}>
-        <input name="message" />
+        <input name="message" autoComplete="off" />
         <button type="submit">Send</button>
       </form>
     </div>

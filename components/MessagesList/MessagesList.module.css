@@ -12,11 +12,12 @@
   width: fit-content;
   padding-inline: 0.25rem;
   border-radius: 0.25rem;
+  word-break: break-all;
 }
 
 .message[data-auth-user-message="true"] {
   margin-left: auto;
-  background-color: var(--secondary);
+  border-color: var(--primary);
 }
 
 .info-block {
