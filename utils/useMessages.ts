@@ -21,6 +21,7 @@ export default function useMessages() {
           event: "INSERT",
           schema: "public",
           table: "messages",
+          ...(roomId && { filter: `room_id=eq.${roomId}` }),
         },
         ({ new: newMessage }) => {
           queryClient.setQueryData<Message[]>(["messages"], (oldData) => {
@@ -44,9 +45,10 @@ export default function useMessages() {
       const query = supabaseClient
         .from("messages")
         .select("*, profile: profiles(username)");
-      const { error, data } = roomId
-        ? await query.match({ room_id: roomId })
-        : await query;
+      const { error, data } =
+        typeof roomId === "string"
+          ? await query.match({ room_id: roomId })
+          : await query.filter("room_id", "is", null);
 
       if (error) throw Error(error.message);
 
