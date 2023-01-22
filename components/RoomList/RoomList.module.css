@@ -11,6 +11,16 @@
   height: 100%;
 }
 
+.item {
+  border-radius: var(--border-radius);
+  width: calc(100% - 1rem);
+  margin-left: 0.5rem;
+}
+
+.item[data-active="true"] {
+  background-color: var(--primary-focus);
+}
+
 .info-block {
   height: 100%;
   width: 100%;

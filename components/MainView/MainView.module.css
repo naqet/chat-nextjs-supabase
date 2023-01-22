@@ -17,7 +17,14 @@
 }
 
 .profile {
-  text-align: center;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr min-content;
+}
+
+.profile > button {
+  white-space: nowrap;
+  margin-bottom: 0;
 }
 
 .new-room {

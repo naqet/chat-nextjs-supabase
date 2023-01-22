@@ -1,9 +1,13 @@
 import useTypedSbClient from "@/utils/useTypedSbClient";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styles from "./RoomList.module.css";
 
 export default function RoomList() {
+  const router = useRouter();
+  const { roomId } = router.query;
+
   const supabaseClient = useTypedSbClient();
   const { data, isError, isLoading } = useQuery({
     queryKey: ["rooms"],
@@ -29,7 +33,11 @@ export default function RoomList() {
       <nav className={styles["rooms-nav"]}>
         <ul className={styles.list}>
           {data.map((room) => (
-            <li key={room.id}>
+            <li
+              key={room.id}
+              data-active={roomId === room.id}
+              className={styles.item}
+            >
               <Link href={`/room/${room.id}`}>{room.name}</Link>
             </li>
           ))}

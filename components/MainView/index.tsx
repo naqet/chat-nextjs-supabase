@@ -29,10 +29,24 @@ export default function MainView() {
       router.push(`room/${createdRoom.id}`);
     } catch {}
   };
+
+  const handleSignOut = async () => {
+    await supabaseClient.auth.signOut();
+    router.push("/login");
+  };
   return (
     <main className={styles.container}>
       <div className={styles.sidebar}>
-        <div className={styles.profile}>{user?.user_metadata.username}</div>
+        <div className={styles.profile}>
+          <small>{user?.user_metadata.username}</small>
+          <button
+            className="secondary outline"
+            onClick={handleSignOut}
+            type="button"
+          >
+            <small>Log out</small>
+          </button>
+        </div>
         <Link href="/" role="button" className="secondary">
           Public Room
         </Link>
