@@ -2,7 +2,7 @@ import useTypedSbClient from "@/utils/useTypedSbClient";
 import { useUser } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FormEvent } from "react";
+import { FormEvent, useRef } from "react";
 import Chat from "../Chat";
 import RoomList from "../RoomList";
 import styles from "./MainView.module.css";
@@ -10,6 +10,7 @@ import styles from "./MainView.module.css";
 export default function MainView() {
   const router = useRouter();
   const user = useUser();
+  const menuRef = useRef<HTMLDivElement>(null);
   const supabaseClient = useTypedSbClient();
 
   const handleCreateNewRoom = async (e: FormEvent<HTMLFormElement>) => {
@@ -34,9 +35,20 @@ export default function MainView() {
     await supabaseClient.auth.signOut();
     router.push("/login");
   };
+
+  const handleToggleMenu = () => {
+    if (!menuRef.current) return;
+
+    menuRef.current.style.display =
+      menuRef.current.style.display === "grid" ? "none" : "grid";
+  };
+
   return (
     <main className={styles.container}>
-      <div className={styles.sidebar}>
+      <button className={styles.toggle} onClick={handleToggleMenu}>
+        Toggle menu
+      </button>
+      <div className={styles.sidebar} ref={menuRef}>
         <small>Username: {user?.user_metadata.username}</small>
         <Link href="/" role="button" className="secondary">
           Public Room

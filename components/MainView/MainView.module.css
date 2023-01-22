@@ -27,10 +27,42 @@
   margin-bottom: 0;
 }
 
+.new-room > input {
+  font-size: 0.9rem;
+}
+
 .new-room > button {
   width: fit-content;
 }
 
 .new-room * {
   margin-bottom: 0rem !important;
+}
+
+.toggle {
+  display: none;
+  margin-bottom: 0;
+  padding-block: 1rem;
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    grid-template-columns: 1fr;
+    height: fit-content;
+    position: relative;
+  }
+  .sidebar {
+    display: none;
+    position: absolute;
+    background-color: var(--background-color);
+    height: 100%;
+    top: 4rem;
+    width: calc(100% + 2px);
+    border-right: none;
+    border: 1px solid var(--secondary);
+  }
+
+  .toggle {
+    display: block;
+  }
 }
