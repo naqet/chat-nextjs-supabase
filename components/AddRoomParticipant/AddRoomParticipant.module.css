@@ -1,0 +1,9 @@
+.form {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  gap: 0.5rem;
+  margin: 0;
+  padding-inline: 1rem;
+  padding-top: 1rem;
+  border-bottom: 1px solid var(--secondary);
+}

@@ -16,14 +16,7 @@
   max-height: calc(70vh - 2px);
 }
 
-.profile {
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr min-content;
-}
-
-.profile > button {
-  white-space: nowrap;
+.logout {
   margin-bottom: 0;
 }
 

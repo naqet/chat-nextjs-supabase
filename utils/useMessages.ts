@@ -13,7 +13,6 @@ export default function useMessages() {
   const supabaseClient = useTypedSbClient();
 
   useEffect(() => {
-    console.log(roomId);
     const channel = supabaseClient
       .channel("messages")
       .on<Message>(

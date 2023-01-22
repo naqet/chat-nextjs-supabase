@@ -37,16 +37,7 @@ export default function MainView() {
   return (
     <main className={styles.container}>
       <div className={styles.sidebar}>
-        <div className={styles.profile}>
-          <small>{user?.user_metadata.username}</small>
-          <button
-            className="secondary outline"
-            onClick={handleSignOut}
-            type="button"
-          >
-            <small>Log out</small>
-          </button>
-        </div>
+        <small>Username: {user?.user_metadata.username}</small>
         <Link href="/" role="button" className="secondary">
           Public Room
         </Link>
@@ -55,6 +46,13 @@ export default function MainView() {
           <input placeholder="New room name" name="name" autoComplete="off" />
           <button>+</button>
         </form>
+        <button
+          className={`secondary outline ${styles.logout}`}
+          onClick={handleSignOut}
+          type="button"
+        >
+          <small>Log out</small>
+        </button>
       </div>
       <Chat />
     </main>
