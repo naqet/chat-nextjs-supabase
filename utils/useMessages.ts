@@ -4,7 +4,9 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useTypedSbClient from "./useTypedSbClient";
 
-type Message = Database["public"]["Tables"]["messages"]["Row"];
+type Message = Database["public"]["Tables"]["messages"]["Row"] & {
+  profiles: { username: string };
+};
 
 export default function useMessages() {
   const router = useRouter();
@@ -24,11 +26,15 @@ export default function useMessages() {
           ...(roomId && { filter: `room_id=eq.${roomId}` }),
         },
         ({ new: newMessage }) => {
-          queryClient.setQueryData<Message[]>(["messages"], (oldData) => {
-            if (typeof oldData === "undefined") return [newMessage];
+          queryClient.setQueryData<Message[]>(
+            ["messages", roomId],
+            (oldData) => {
+              // TODO: Add profiles cache and nickname fetching on receive channel update
+              if (typeof oldData === "undefined") return [newMessage];
 
-            return [...oldData, newMessage];
-          });
+              return [...oldData, newMessage];
+            }
+          );
         }
       )
       .subscribe();
@@ -36,10 +42,10 @@ export default function useMessages() {
     return () => {
       supabaseClient.removeChannel(channel);
     };
-  }, []);
+  }, [roomId]);
 
   return useQuery({
-    queryKey: ["messages"],
+    queryKey: ["messages", roomId],
     refetchOnWindowFocus: false,
     queryFn: async () => {
       const query = supabaseClient

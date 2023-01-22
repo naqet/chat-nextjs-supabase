@@ -1,23 +1,35 @@
 .list {
   height: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
   overflow-y: scroll;
-  border-bottom: 1px solid var(--secondary);
+  padding-inline: 1rem;
+  padding-top: 1rem;
+  margin-bottom: 0px;
 }
 
 .message {
   list-style: none;
-  border: 1px solid var(--secondary);
   width: fit-content;
+}
+
+.message > p {
+  margin-bottom: 0;
   padding-inline: 0.25rem;
   border-radius: 0.25rem;
   word-break: break-all;
+  border: 1px solid var(--secondary);
 }
 
 .message[data-auth-user-message="true"] {
   margin-left: auto;
   border-color: var(--primary);
+}
+
+.message[data-auth-user-message="true"] > p {
+  border-color: var(--primary);
+}
+
+.message[data-auth-user-message="true"] > small {
+  display: none;
 }
 
 .info-block {

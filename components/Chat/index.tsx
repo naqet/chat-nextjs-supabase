@@ -1,6 +1,7 @@
 import useTypedSbClient from "@/utils/useTypedSbClient";
 import { useRouter } from "next/router";
 import { FormEvent } from "react";
+import AddRoomParticipant from "../AddRoomParticipant";
 import MessagesList from "../MessagesList";
 import styles from "./Chat.module.css";
 
@@ -30,6 +31,7 @@ export default function Chat() {
 
   return (
     <div className={styles.chat}>
+      {roomId && <AddRoomParticipant />}
       <MessagesList />
       <form onSubmit={handleSubmit} className={styles["message-input"]}>
         <input name="message" autoComplete="off" />

@@ -13,10 +13,11 @@
   flex-direction: column;
   padding: 1rem;
   gap: 0.5rem;
+  max-height: calc(70vh - 2px);
 }
 
-.profile {
-  text-align: center;
+.logout {
+  margin-bottom: 0;
 }
 
 .new-room {

@@ -1,0 +1,29 @@
+.container {
+  min-height: 100px;
+}
+
+.rooms-nav {
+  height: 100%;
+}
+
+.list {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.item {
+  border-radius: var(--border-radius);
+  width: calc(100% - 1rem);
+  margin-left: 0.5rem;
+}
+
+.item[data-active="true"] {
+  background-color: var(--primary-focus);
+}
+
+.info-block {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent } from "react";
 import Chat from "../Chat";
+import RoomList from "../RoomList";
 import styles from "./MainView.module.css";
 
 export default function MainView() {
@@ -28,17 +29,30 @@ export default function MainView() {
       router.push(`room/${createdRoom.id}`);
     } catch {}
   };
+
+  const handleSignOut = async () => {
+    await supabaseClient.auth.signOut();
+    router.push("/login");
+  };
   return (
     <main className={styles.container}>
       <div className={styles.sidebar}>
-        <div className={styles.profile}>{user?.user_metadata.username}</div>
+        <small>Username: {user?.user_metadata.username}</small>
         <Link href="/" role="button" className="secondary">
           Public Room
         </Link>
+        <RoomList />
         <form className={styles["new-room"]} onSubmit={handleCreateNewRoom}>
           <input placeholder="New room name" name="name" autoComplete="off" />
           <button>+</button>
         </form>
+        <button
+          className={`secondary outline ${styles.logout}`}
+          onClick={handleSignOut}
+          type="button"
+        >
+          <small>Log out</small>
+        </button>
       </div>
       <Chat />
     </main>
