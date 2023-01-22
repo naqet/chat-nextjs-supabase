@@ -17,7 +17,7 @@ export default function MessagesList() {
   if (isError) return <div className={styles["info-block"]}>Error</div>;
 
   if (isLoading)
-    return <div className={styles["info-block"]}>Loading messages</div>;
+    return <div className={styles["info-block"]} aria-busy="true" />;
 
   if (!messages.length)
     return <div className={styles["info-block"]}>No messages</div>;
@@ -30,7 +30,11 @@ export default function MessagesList() {
           data-auth-user-message={user?.id === message.profile_id}
           className={styles.message}
         >
-          {message.content}
+          <small>
+            {!Array.isArray(message.profile) &&
+              (message.profile?.username as string)}
+          </small>
+          <p>{message.content}</p>
         </li>
       ))}
     </ul>

@@ -1,10 +1,12 @@
 import { Database } from "@/types/supabase";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import useTypedSbClient from "./useTypedSbClient";
 
-type Message = Database["public"]["Tables"]["messages"]["Row"];
+type Message = Database["public"]["Tables"]["messages"]["Row"] & {
+  profiles: { username: string };
+};
 
 export default function useMessages() {
   const router = useRouter();
@@ -27,6 +29,7 @@ export default function useMessages() {
           queryClient.setQueryData<Message[]>(
             ["messages", roomId],
             (oldData) => {
+              // TODO: Add profiles cache and nickname fetching on receive channel update
               if (typeof oldData === "undefined") return [newMessage];
 
               return [...oldData, newMessage];
