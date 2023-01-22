@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent } from "react";
 import Chat from "../Chat";
+import RoomList from "../RoomList";
 import styles from "./MainView.module.css";
 
 export default function MainView() {
@@ -35,6 +36,7 @@ export default function MainView() {
         <Link href="/" role="button" className="secondary">
           Public Room
         </Link>
+        <RoomList />
         <form className={styles["new-room"]} onSubmit={handleCreateNewRoom}>
           <input placeholder="New room name" name="name" autoComplete="off" />
           <button>+</button>

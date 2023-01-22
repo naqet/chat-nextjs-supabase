@@ -1,7 +1,7 @@
 import { Database } from "@/types/supabase";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import useTypedSbClient from "./useTypedSbClient";
 
 type Message = Database["public"]["Tables"]["messages"]["Row"];
@@ -13,6 +13,7 @@ export default function useMessages() {
   const supabaseClient = useTypedSbClient();
 
   useEffect(() => {
+    console.log(roomId);
     const channel = supabaseClient
       .channel("messages")
       .on<Message>(
@@ -24,11 +25,14 @@ export default function useMessages() {
           ...(roomId && { filter: `room_id=eq.${roomId}` }),
         },
         ({ new: newMessage }) => {
-          queryClient.setQueryData<Message[]>(["messages"], (oldData) => {
-            if (typeof oldData === "undefined") return [newMessage];
+          queryClient.setQueryData<Message[]>(
+            ["messages", roomId],
+            (oldData) => {
+              if (typeof oldData === "undefined") return [newMessage];
 
-            return [...oldData, newMessage];
-          });
+              return [...oldData, newMessage];
+            }
+          );
         }
       )
       .subscribe();
@@ -36,10 +40,10 @@ export default function useMessages() {
     return () => {
       supabaseClient.removeChannel(channel);
     };
-  }, []);
+  }, [roomId]);
 
   return useQuery({
-    queryKey: ["messages"],
+    queryKey: ["messages", roomId],
     refetchOnWindowFocus: false,
     queryFn: async () => {
       const query = supabaseClient

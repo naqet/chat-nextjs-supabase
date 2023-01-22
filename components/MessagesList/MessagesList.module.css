@@ -1,9 +1,9 @@
 .list {
   height: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
   overflow-y: scroll;
-  border-bottom: 1px solid var(--secondary);
+  padding-inline: 1rem;
+  padding-top: 1rem;
+  margin-bottom: 0px;
 }
 
 .message {

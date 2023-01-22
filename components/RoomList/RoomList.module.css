@@ -1,0 +1,19 @@
+.container {
+  min-height: 100px;
+}
+
+.rooms-nav {
+  height: 100%;
+}
+
+.list {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.info-block {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
