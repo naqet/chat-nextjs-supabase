@@ -1,7 +1,22 @@
 {
   "name": "chat-nextjs-supabase",
+  "description": "Realtime chat app built entirely with purpose to learn about supabase",
+  "keywords": [
+    "realtime chat",
+    "nextjs and supabase"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naqet/chat-nextjs-supabase.git"
+  },
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Szymon Szadkowski",
+    "email": "s.t.szad@gmail.com",
+    "url": "https://szymonszadkowski.com/"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
